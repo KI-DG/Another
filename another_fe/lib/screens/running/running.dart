@@ -81,6 +81,7 @@ class _RunningTabState extends State<RunningTab> {
                 // RunningCircleButton(iconNamed: Icons.play_arrow, onPressed: onPressed()),
                 RunningCircleButton(
                   iconNamed: Icons.play_arrow,
+                  onPressed: onPressed,
                 ),
                 RunningMyHIstoryButton(),
                 ],
@@ -120,8 +121,9 @@ class _RunningTabState extends State<RunningTab> {
     return '위치 권한이 허가 되었습니다.';
   }
   // 타이머 페이지로 context?
-  // void onPressed() {
-  //   Navigator.of(context).pushAndRemoveUntil(
-  //       MaterialPageRoute(builder: (_) => TimerScreen()), (route) => false);
-  // }
+  void onPressed() {
+
+    // Navigator.of(context).pushAndRemoveUntil(
+    //     MaterialPageRoute(builder: (_) => TimerScreen()), (route) => false);
+  }
 }
