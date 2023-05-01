@@ -1,13 +1,13 @@
 spring:
   profiles:
     group:
-      "local" : "local, common"
-      "development" : "development, common"
+      "local": "local, common"
+      "development": "development, common"
     active: local
 
   mvc:
     pathmatch:
-      matching-strategy : ant_path_matcher
+      matching-strategy: ant_path_matcher
 ---
 spring:
   config:
@@ -15,9 +15,9 @@ spring:
       on-profile: "common"
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${DB_DOMAIN}:${DB_PORT}/another?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/anothertest?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: ssafy
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
@@ -62,3 +62,7 @@ cloud:
     credentials:
       access-key: ${ACCESS_KEY}
       secret-key: ${SECRET_KEY}
+---
+data:
+  all-data: ${ALL_DATA}
+  versus-data: ${VERSUS_DATA}
