@@ -93,20 +93,43 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     color: WHITE_COLOR,
                     size: 20,
                   ),
-                ),
-              ),
-            ),
-            Positioned(
-              left: 36,
-              top: 0,
-              child: Text(
-                'Lv.${_userLevel}',
-                style: TextStyle(color: Colors.white),
-              ),
-            )
-          ],
-        )
-      ],
-    );
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ProfileEditPage(),
+                          ),
+                        );
+                        setState(() {
+
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: MAIN_COLOR,
+                        radius: 15,
+                        child: Icon(
+                          Icons.edit,
+                          color: WHITE_COLOR,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    left: 36,
+                    top: 0,
+                    child: Text(
+                      'Lv.${_userLevel}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              )
+            ],
+          );
   }
 }
