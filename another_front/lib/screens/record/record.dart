@@ -111,7 +111,8 @@ class RecordTab extends StatelessWidget {
                                 SizedBox(height: 10),
                                 Row(
                                   children: [
-                                    CategoryTitle(title: 'MY 챌린지', top: 0, bottom: 0),
+                                    CategoryTitle(
+                                        title: 'MY 챌린지', top: 0, bottom: 0),
                                     IconButton(
                                       onPressed: () {
                                         Navigator.push(
@@ -130,7 +131,8 @@ class RecordTab extends StatelessWidget {
                                 ),
                                 SizedBox(height: 5),
                                 MyChallenge(), // 나의 챌린지
-                                CategoryTitle(title: '나의 활동 기록', top: 25, bottom: 10),
+                                CategoryTitle(
+                                    title: '나의 활동 기록', top: 25, bottom: 10),
                                 SizedBox(height: 5),
                                 MyRecord(),
                               ],
@@ -183,7 +185,7 @@ class _MyChallengeState extends State<MyChallenge> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: _isLoading == true
-            ? Center(child: CircularProgressIndicator())
+            ? Container()
             : Row(
                 children:
                     // if API가 0개이면 띄워줄거 작성해야함
@@ -332,117 +334,131 @@ class _MyRecordState extends State<MyRecord> {
     // print('_historyData: $_historyData');
     // print('_markerData: $_markerData');
     // print('===================');
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                side: BorderSide(
-                    color: _selectedIndex == 0 ? MAIN_COLOR : SERVEONE_COLOR,
-                    width: 2),
+    return _isLoading
+        ? Container()
+        : Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      side: BorderSide(
+                          color:
+                              _selectedIndex == 0 ? MAIN_COLOR : SERVEONE_COLOR,
+                          width: 2),
+                    ),
+                    onPressed: () => {
+                      _updateContent(0, false),
+                      getRecord(null),
+                    },
+                    child: Text('오늘',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:
+                              _selectedIndex == 0 ? MAIN_COLOR : SERVEONE_COLOR,
+                        )),
+                  ),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      side: BorderSide(
+                          color:
+                              _selectedIndex == 1 ? MAIN_COLOR : SERVEONE_COLOR,
+                          width: 2),
+                    ),
+                    onPressed: () => {
+                      _updateContent(1, false),
+                      getRecord(null),
+                    },
+                    child: Text('이번 주',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:
+                              _selectedIndex == 1 ? MAIN_COLOR : SERVEONE_COLOR,
+                        )),
+                  ),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      side: BorderSide(
+                          color:
+                              _selectedIndex == 2 ? MAIN_COLOR : SERVEONE_COLOR,
+                          width: 2),
+                    ),
+                    onPressed: () => {
+                      _updateContent(2, false),
+                      getRecord(null),
+                    },
+                    child: Text('이번 달',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:
+                              _selectedIndex == 2 ? MAIN_COLOR : SERVEONE_COLOR,
+                        )),
+                  ),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      side: BorderSide(
+                          color:
+                              _selectedIndex == 3 ? MAIN_COLOR : SERVEONE_COLOR,
+                          width: 2),
+                    ),
+                    onPressed: () => {
+                      _updateContent(3, false),
+                      getRecord(null),
+                    },
+                    child: Text('전체',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color:
+                              _selectedIndex == 3 ? MAIN_COLOR : SERVEONE_COLOR,
+                        )),
+                  ),
+                  OutlinedButton(
+                      onPressed: () {
+                        if (_selectedIndex != 4) {
+                          _updateContent(4, true);
+                          getRecord(Provider.of<ForDate>(context, listen: false)
+                              .forFocusFormat);
+                        } else if (_selectedIndex == 4 &&
+                            _isCalendarOpen == true) {
+                          _updateContent(4, false);
+                        } else if (_selectedIndex == 4 &&
+                            _isCalendarOpen == false) {
+                          _updateContent(4, true);
+                        }
+                      },
+                      child: Icon(
+                        Icons.calendar_today,
+                        color: _isCalendarOpen == true
+                            ? MAIN_COLOR
+                            : SERVEONE_COLOR,
+                      )),
+                ],
               ),
-              onPressed: () => {
-                _updateContent(0, false),
-                getRecord(null),
-              },
-              child: Text('오늘',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _selectedIndex == 0 ? MAIN_COLOR : SERVEONE_COLOR,
-                  )),
-            ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                side: BorderSide(
-                    color: _selectedIndex == 1 ? MAIN_COLOR : SERVEONE_COLOR,
-                    width: 2),
-              ),
-              onPressed: () => {
-                _updateContent(1, false),
-                getRecord(null),
-              },
-              child: Text('이번 주',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _selectedIndex == 1 ? MAIN_COLOR : SERVEONE_COLOR,
-                  )),
-            ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                side: BorderSide(
-                    color: _selectedIndex == 2 ? MAIN_COLOR : SERVEONE_COLOR,
-                    width: 2),
-              ),
-              onPressed: () => {
-                _updateContent(2, false),
-                getRecord(null),
-              },
-              child: Text('이번 달',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _selectedIndex == 2 ? MAIN_COLOR : SERVEONE_COLOR,
-                  )),
-            ),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(3),
-                ),
-                side: BorderSide(
-                    color: _selectedIndex == 3 ? MAIN_COLOR : SERVEONE_COLOR,
-                    width: 2),
-              ),
-              onPressed: () => {
-                _updateContent(3, false),
-                getRecord(null),
-              },
-              child: Text('전체',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: _selectedIndex == 3 ? MAIN_COLOR : SERVEONE_COLOR,
-                  )),
-            ),
-            OutlinedButton(
-                onPressed: () {
-                  if (_selectedIndex != 4) {
-                    _updateContent(4, true);
-                    getRecord(Provider.of<ForDate>(context, listen: false)
-                        .forFocusFormat);
-                  } else if (_selectedIndex == 4 && _isCalendarOpen == true) {
-                    _updateContent(4, false);
-                  } else if (_selectedIndex == 4 && _isCalendarOpen == false) {
-                    _updateContent(4, true);
-                  }
-                },
-                child: Icon(
-                  Icons.calendar_today,
-                  color: _isCalendarOpen == true ? MAIN_COLOR : SERVEONE_COLOR,
-                )),
-          ],
-        ),
-        _isLoading == true
-            ? Center(child: CircularProgressIndicator())
-            : MyRecordContents(
-                getRecord: getRecord,
-                selectedIndex: _selectedIndex,
-                isCalendarOpen: _isCalendarOpen,
-                periodData: _periodData,
-                historyData: _historyData,
-                markerData: _markerData,
-              )
-      ],
-    );
+              _isLoading == true
+                  ? Center(child: CircularProgressIndicator())
+                  : MyRecordContents(
+                      getRecord: getRecord,
+                      selectedIndex: _selectedIndex,
+                      isCalendarOpen: _isCalendarOpen,
+                      periodData: _periodData,
+                      historyData: _historyData,
+                      markerData: _markerData,
+                    )
+            ],
+          );
   }
 }
 
